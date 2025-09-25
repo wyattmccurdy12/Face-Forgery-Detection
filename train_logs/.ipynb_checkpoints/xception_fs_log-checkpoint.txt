@@ -1,0 +1,3 @@
+--------------------------------
+Training Accuracy: 92.01%
+Validation Accuracy: 84.12%

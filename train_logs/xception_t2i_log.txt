@@ -1,0 +1,100 @@
+EPOCH 1/100
+LOSS | Train: 0.1889 | Validation: 0.0361
+EPOCH 2/100
+LOSS | Train: 0.0470 | Validation: 0.0171
+EPOCH 3/100
+LOSS | Train: 0.0306 | Validation: 0.0106
+EPOCH 4/100
+LOSS | Train: 0.0218 | Validation: 0.0080
+EPOCH 5/100
+LOSS | Train: 0.0177 | Validation: 0.0066
+EPOCH 6/100
+LOSS | Train: 0.0146 | Validation: 0.0057
+EPOCH 7/100
+LOSS | Train: 0.0133 | Validation: 0.0038
+EPOCH 8/100
+LOSS | Train: 0.0115 | Validation: 0.0053
+EPOCH 9/100
+LOSS | Train: 0.0101 | Validation: 0.0039
+EPOCH 10/100
+LOSS | Train: 0.0092 | Validation: 0.0026
+EPOCH 11/100
+LOSS | Train: 0.0088 | Validation: 0.0030
+EPOCH 12/100
+LOSS | Train: 0.0074 | Validation: 0.0026
+EPOCH 13/100
+LOSS | Train: 0.0069 | Validation: 0.0041
+EPOCH 14/100
+LOSS | Train: 0.0055 | Validation: 0.0029
+EPOCH 15/100
+LOSS | Train: 0.0055 | Validation: 0.0032
+EPOCH 16/100
+LOSS | Train: 0.0051 | Validation: 0.0027
+EPOCH 17/100
+LOSS | Train: 0.0044 | Validation: 0.0022
+EPOCH 18/100
+LOSS | Train: 0.0049 | Validation: 0.0020
+EPOCH 19/100
+LOSS | Train: 0.0045 | Validation: 0.0022
+EPOCH 20/100
+LOSS | Train: 0.0039 | Validation: 0.0020
+EPOCH 21/100
+LOSS | Train: 0.0035 | Validation: 0.0020
+EPOCH 22/100
+LOSS | Train: 0.0036 | Validation: 0.0019
+EPOCH 23/100
+LOSS | Train: 0.0037 | Validation: 0.0018
+EPOCH 24/100
+LOSS | Train: 0.0033 | Validation: 0.0013
+EPOCH 25/100
+LOSS | Train: 0.0035 | Validation: 0.0016
+EPOCH 26/100
+LOSS | Train: 0.0025 | Validation: 0.0013
+EPOCH 27/100
+LOSS | Train: 0.0029 | Validation: 0.0010
+EPOCH 28/100
+LOSS | Train: 0.0029 | Validation: 0.0011
+EPOCH 29/100
+LOSS | Train: 0.0026 | Validation: 0.0013
+EPOCH 30/100
+LOSS | Train: 0.0026 | Validation: 0.0009
+EPOCH 31/100
+LOSS | Train: 0.0021 | Validation: 0.0009
+EPOCH 32/100
+LOSS | Train: 0.0027 | Validation: 0.0015
+EPOCH 33/100
+LOSS | Train: 0.0023 | Validation: 0.0011
+EPOCH 34/100
+LOSS | Train: 0.0018 | Validation: 0.0018
+EPOCH 35/100
+LOSS | Train: 0.0023 | Validation: 0.0015
+EPOCH 36/100
+LOSS | Train: 0.0019 | Validation: 0.0010
+EPOCH 37/100
+LOSS | Train: 0.0018 | Validation: 0.0005
+EPOCH 38/100
+LOSS | Train: 0.0017 | Validation: 0.0012
+EPOCH 39/100
+LOSS | Train: 0.0019 | Validation: 0.0005
+EPOCH 40/100
+LOSS | Train: 0.0018 | Validation: 0.0015
+EPOCH 41/100
+LOSS | Train: 0.0017 | Validation: 0.0013
+EPOCH 42/100
+LOSS | Train: 0.0016 | Validation: 0.0009
+EPOCH 43/100
+LOSS | Train: 0.0014 | Validation: 0.0013
+EPOCH 44/100
+LOSS | Train: 0.0015 | Validation: 0.0011
+EPOCH 45/100
+LOSS | Train: 0.0016 | Validation: 0.0008
+EPOCH 46/100
+LOSS | Train: 0.0015 | Validation: 0.0009
+EPOCH 47/100
+LOSS | Train: 0.0013 | Validation: 0.0012
+EPOCH 48/100
+LOSS | Train: 0.0013 | Validation: 0.0023
+EPOCH 49/100
+LOSS | Train: 0.0013 | Validation: 0.0007
+
+Early stopping at epoch 49.
