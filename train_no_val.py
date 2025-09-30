@@ -19,6 +19,11 @@ import sys
 sys.path.insert(1, "F3Net")
 from models import F3Net
 
+sys.path.insert(1, "DIRE")
+from DIRE.utils.utils import get_network, str2bool, to_cuda
+import torchvision.transforms.functional as TF
+
+
 # ==============================================================================
 # Setup & Configuration
 # ==============================================================================
@@ -31,7 +36,7 @@ print(f"Using device: {device}")
 parser = argparse.ArgumentParser(description="Train a binary image classifier.")
 parser.add_argument('-t', '--type_modification', required=True, help="Sub-directory for the training data.")
 parser.add_argument('-b', '--batch_size', type=int, default=32, help="Batch size for training.")
-parser.add_argument('-m', '--model_name', choices=['resnet50', 'xception', 'effnet', 'f3net'], required=True, help="Model architecture to use.")
+parser.add_argument('-m', '--model_name', choices=['resnet50', 'xception', 'effnet', 'f3net', 'dire'], required=True, help="Model architecture to use.")
 args = parser.parse_args()
 
 # Variable declarations
@@ -87,12 +92,19 @@ effnet = timm.create_model('efficientnet_b0', pretrained=True, num_classes=NUM_C
 
 f3net = F3Net(img_width=256, img_height=256)
 
+dire = get_network("resnet50", isTrain=True, continue_train=True)
+dire_state_dict = torch.load("DIRE/checkpoints/lsun_adm.pth")
+if "model" in dire_state_dict:
+    dire_state_dict = dire_state_dict["model"]
+dire.load_state_dict(dire_state_dict)
+
 # Dictionary to select the model based on command-line argument
 net_dict = {
     'resnet50': resnet,
     'xception': xception,
     'effnet': effnet,
-    'f3net': f3net
+    'f3net': f3net, 
+    'dire': dire
 }
 
 model = net_dict[MODEL_NAME].to(device)
@@ -126,7 +138,10 @@ with open(f"train_logs/{MODEL_NAME}_{args.type_modification}_log.txt", "w") as f
             optimizer.zero_grad()
 
             # Forward pass
-            outputs = model(inputs).squeeze() # Use squeeze instead of flatten for clarity
+            if MODEL_NAME == "f3net":
+                outputs = model(inputs)[1].squeeze()
+            else:
+                outputs = model(inputs).squeeze() 
 
             # Calculate loss and backpropagate
             loss = criterion(outputs, labels)

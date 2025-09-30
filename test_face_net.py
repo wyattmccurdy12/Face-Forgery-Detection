@@ -32,10 +32,17 @@ from sklearn.metrics import (
 from fakeface_data_utils import RealFakeFaceDataset, create_or_load_csv
 from diff_datasets import FaceDataset
 
+import sys
+sys.path.insert(1, "F3Net")
+from models import F3Net
+
+sys.path.insert(1, "DIRE")
+from DIRE.utils.utils import get_network, str2bool, to_cuda
+import torchvision.transforms.functional as TF
+
 # Ignore warnings
 import warnings
 warnings.filterwarnings("ignore")
-
 
 # Parse command-line arguments
 parser = argparse.ArgumentParser()
@@ -105,7 +112,7 @@ model = None
 if args.network_type == "resnet50":
     model = models.resnet50()
     model.fc = torch.nn.Linear(model.fc.in_features, NUM_CLASSES)
-    checkpoint = torch.load(f"model_state_dicts/{args.network_name}")
+    # checkpoint = torch.load(f"model_state_dicts/{args.network_name}")
     model.load_state_dict(torch.load(f"model_state_dicts/{args.network_name}", weights_only=True))
 elif args.network_type == "xception":
     model = timm.create_model('xception', num_classes=NUM_CLASSES)
@@ -113,6 +120,16 @@ elif args.network_type == "xception":
 elif args.network_type == "effnet":
     model = timm.create_model('efficientnet_b0', pretrained=True, num_classes=NUM_CLASSES)
     model.load_state_dict(torch.load(f"model_state_dicts/{args.network_name}", weights_only=True))
+elif args.network_type == "f3net": 
+    model = F3Net(img_width=256, img_height=256)
+    model.load_state_dict(torch.load(f"model_state_dicts/{args.network_name}", weights_only=True))
+elif args.network_type == "dire":
+    model = get_network("resnet50")
+    model.load_state_dict(torch.load(f"model_state_dicts/{args.network_name}", weights_only=True))
+    # dire_state_dict = torch.load(f"model_state_dicts/{args.network_name}")
+    # if "model" in dire_state_dict:
+    #     dire_state_dict = dire_state_dict["model"]
+    # model.load_state_dict(dire_state_dict)    
 
 model = model.to("cuda")
     
@@ -152,7 +169,11 @@ for fake_type in preds_targs_dict.keys():
             
             images, labels = data["img_array"].to("cuda"), data["is_fake"].to("cuda")
             # calculate outputs by running images through the network
-            outputs = torch.flatten(model(images))
+
+            if MODEL_NAME == "f3net": 
+                outputs = torch.flatten(model(images)[1])    
+            else:
+                outputs = torch.flatten(model(images))
             
             # assuming the network predicts negative for false and positive for true
             binary_pred = torch.where(outputs > 0, 1, 0)
