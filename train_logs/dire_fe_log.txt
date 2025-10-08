@@ -1,0 +1,5 @@
+EPOCH 1/50
+LOSS | Train: 0.2087
+EPOCH 2/50
+LOSS | Train: 0.0775
+EPOCH 3/50

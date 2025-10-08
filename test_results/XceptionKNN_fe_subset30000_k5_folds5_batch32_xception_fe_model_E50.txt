@@ -1,0 +1,46 @@
+============================================================
+XCEPTION-KNN HYBRID MODEL RESULTS
+============================================================
+Timestamp: 2025-10-08 13:56:00
+Model: Xception-KNN Hybrid
+Xception Model Path: xception_fe_model_E50
+Training Dataset: fe
+Subset Size: 30000
+Batch Size: 32
+K-Fold Splits: 5
+KNN Neighbors: 5
+Minkowski p-value: 2
+
+CROSS-VALIDATION RESULTS:
+------------------------------
+Training Accuracy (Avg): 86.46%
+Validation Accuracy (Avg): 80.37%
+Macro Accuracy Avg: 83.41%
+Weighted Accuracy Avg: 85.24%
+
+TEST DATASET ACCURACIES:
+------------------------------
+fe: 0.8132
+fs: 0.5779
+i2i: 0.6480
+t2i: 0.6164
+Average Test Accuracy: 0.6639
+
+INDIVIDUAL FOLD RESULTS:
+------------------------------
+Fold 1:
+  Training Accuracy: 86.31%
+  Validation Accuracy: 81.18%
+Fold 2:
+  Training Accuracy: 86.48%
+  Validation Accuracy: 80.03%
+Fold 3:
+  Training Accuracy: 86.62%
+  Validation Accuracy: 80.67%
+Fold 4:
+  Training Accuracy: 86.55%
+  Validation Accuracy: 79.50%
+Fold 5:
+  Training Accuracy: 86.33%
+  Validation Accuracy: 80.48%
+

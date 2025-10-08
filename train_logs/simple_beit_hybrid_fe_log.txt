@@ -1,0 +1,30 @@
+Simple BEiT-ResNet Hybrid Training Log
+==================================================
+Configuration:
+  Model: SimpleBEiTResNetHybrid
+  Batch Size: 16
+  Epochs: 20
+  Dataset: fe
+  Subset Size: 3000
+  FFT Mode: False
+==================================================
+EPOCH 1
+LOSS | Train: 0.5330
+EPOCH 2
+LOSS | Train: 0.4831
+EPOCH 3
+LOSS | Train: 0.4700
+EPOCH 4
+LOSS | Train: 0.4568
+EPOCH 5
+LOSS | Train: 0.4544
+EPOCH 6
+LOSS | Train: 0.4406
+EPOCH 7
+LOSS | Train: 0.4330
+EPOCH 8
+LOSS | Train: 0.4149
+EPOCH 9
+LOSS | Train: 0.4134
+EPOCH 10
+LOSS | Train: 0.4076
