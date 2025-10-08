@@ -29,12 +29,32 @@ from sklearn.metrics import (
     f1_score,
     classification_report
 )
-from fakeface_data_utils import RealFakeFaceDataset, create_or_load_csv
+
 from diff_datasets import FaceDataset
+
+## Import resnet34 with cbam head
+# from resnet18cbam import ResNetWithCbamHead
+
+# Import the cbam with intermediate cbam blocks
+from Res_CBAM_FFT import ResNetCBAM, BasicBlockCBAM
+def resnet34_cbam(num_classes, in_channels):
+    # The layer configuration for ResNet-34 is [3, 4, 6, 3]
+    resnet34_layer_config = [3, 4, 6, 3] 
+
+    # 2. Instantiate the model as ResNet-34
+    resnet34_model = ResNetCBAM(
+        block=BasicBlockCBAM, 
+        layers=resnet34_layer_config, 
+        num_classes=num_classes,
+        in_channels=in_channels
+    )
+    
+    return resnet34_model
 
 import sys
 sys.path.insert(1, "F3Net")
 from models import F3Net
+from F3Net.models_modified import F3Net as F3NetMod
 
 sys.path.insert(1, "DIRE")
 from DIRE.utils.utils import get_network, str2bool, to_cuda
@@ -49,12 +69,15 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-n', '--network_name')
 parser.add_argument('-b', '--batch_size')
 parser.add_argument('-t', '--network_type')
+parser.add_argument('-fft', '--fft_mode', default='N')
 
 args = parser.parse_args()
 
 BATCH_SIZE = int(args.batch_size)
 MODEL_NAME = args.network_type
 NUM_CLASSES = 1
+FFT_MODE = True if args.fft_mode == 'Y' else False
+IN_CHANNELS = 4 if FFT_MODE else 3
 
 # Define transform
 transform = v2.Compose([
@@ -70,10 +93,10 @@ transform = v2.Compose([
 # fs_test_dataset = RealFakeFaceDataset(root_dir="test", sub_dir="fs", transform=transform)
 # i2i_test_dataset = RealFakeFaceDataset(root_dir="test", sub_dir="i2i", transform=transform)
 # t2i_test_dataset = RealFakeFaceDataset(root_dir="test", sub_dir="t2i", transform=transform)
-fe_test_dataset = FaceDataset(root_dir="test", sub_dir="fe", transform=transform)
-fs_test_dataset = FaceDataset(root_dir="test", sub_dir="fs", transform=transform)
-i2i_test_dataset = FaceDataset(root_dir="test", sub_dir="i2i", transform=transform)
-t2i_test_dataset = FaceDataset(root_dir="test", sub_dir="t2i", transform=transform)
+fe_test_dataset = FaceDataset(root_dir="test", sub_dir="fe", transform=transform, use_fft=FFT_MODE)
+fs_test_dataset = FaceDataset(root_dir="test", sub_dir="fs", transform=transform, use_fft=FFT_MODE)
+i2i_test_dataset = FaceDataset(root_dir="test", sub_dir="i2i", transform=transform, use_fft=FFT_MODE)
+t2i_test_dataset = FaceDataset(root_dir="test", sub_dir="t2i", transform=transform, use_fft=FFT_MODE)
 
 fe_test_dataloader = DataLoader(
     fe_test_dataset, 
@@ -123,31 +146,30 @@ elif args.network_type == "effnet":
 elif args.network_type == "f3net": 
     model = F3Net(img_width=256, img_height=256)
     model.load_state_dict(torch.load(f"model_state_dicts/{args.network_name}", weights_only=True))
+elif args.network_type == "f3mod":
+    model = F3NetMod(img_width=224, img_height=224)
+    model.load_state_dict(torch.load(f"model_state_dicts/{args.network_name}", weights_only=True))
 elif args.network_type == "dire":
     model = get_network("resnet50")
     model.load_state_dict(torch.load(f"model_state_dicts/{args.network_name}", weights_only=True))
     # dire_state_dict = torch.load(f"model_state_dicts/{args.network_name}")
     # if "model" in dire_state_dict:
     #     dire_state_dict = dire_state_dict["model"]
-    # model.load_state_dict(dire_state_dict)    
+    # model.load_state_dict(dire_state_dict) 
+elif args.network_type == "resnet_cbam":
+    model = ResNetWithCbamHead(pretrained=True, num_classes=NUM_CLASSES)
+    model.load_state_dict(torch.load(f"model_state_dicts/{args.network_name}", weights_only=True))
+elif args.network_type == "resnet_cbam_i":
+    model = resnet34_cbam(NUM_CLASSES, IN_CHANNELS) # with intermediate cbam blocks
+    model.load_state_dict(torch.load(f"model_state_dicts/{args.network_name}", weights_only=True))
+elif args.network_type == "resnet34":
+    model = models.resnet34()
+    model.fc = torch.nn.Linear(model.fc.in_features, NUM_CLASSES)
+    model.load_state_dict(torch.load(f"model_state_dicts/{args.network_name}", weights_only=True))
 
 model = model.to("cuda")
     
-    
-# resnet = models.resnet50()
-# resnet.fc = torch.nn.Linear(resnet.fc.in_features, NUM_CLASSES)
 
-# checkpoint = torch.load(f"model_state_dicts/{args.network_name}")
-# state_dict = checkpoint['state_dict']
-
-# resnet.load_state_dict(state_dict, weights_only=True)
-# resnet = torch.load(f"model_state_dicts/{args.network_name}")
-
-# ## NETWORK
-# net_dict = {
-#     'simple_net': net.to("cuda"),
-#     'resnet50': resnet
-# }
 
 # model = net_dict[MODEL_NAME]
 
@@ -170,7 +192,7 @@ for fake_type in preds_targs_dict.keys():
             images, labels = data["img_array"].to("cuda"), data["is_fake"].to("cuda")
             # calculate outputs by running images through the network
 
-            if MODEL_NAME == "f3net": 
+            if MODEL_NAME == "f3net" or MODEL_NAME == "f3mod": 
                 outputs = torch.flatten(model(images)[1])    
             else:
                 outputs = torch.flatten(model(images))
