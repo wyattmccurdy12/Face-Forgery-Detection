@@ -26,7 +26,6 @@ class FaceDataset(Dataset):
     def __getitem__(self, idx):
         if torch.is_tensor(idx):
             idx = idx.to_list()
-        
 
         img_path = self.img_info_rows[idx][1]
         img = Image.open(img_path)
