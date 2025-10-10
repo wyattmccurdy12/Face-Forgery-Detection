@@ -117,23 +117,6 @@ def get_model(model_name, num_classes=1, num_channels=3, freeze_early=False, fus
         
     elif model_name == 'resnet_cbam_i':
         model = initialize_resnet_cbam_intermediate(num_classes, num_channels, freeze_early)
-    
-    # elif model_name == 'beit_resnet_hybrid':
-    #     model = beit_resnet_cbam_hybrid(
-    #         num_classes=num_classes, 
-    #         in_channels=num_channels,
-    #         beit_model="beit_base_patch16_224",
-    #         freeze_beit=freeze_early,
-    #         fusion_method=fusion_method
-    #     )
-    
-    # elif model_name == 'beit_resnet_hybrid_small':
-    #     model = beit_resnet_cbam_hybrid_small(
-    #         num_classes=num_classes,
-    #         in_channels=num_channels,
-    #         freeze_beit=freeze_early,
-    #         fusion_method=fusion_method
-    #     )
         
     else:
         raise ValueError(f"Unknown model name: {model_name}")
