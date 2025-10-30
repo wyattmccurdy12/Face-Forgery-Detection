@@ -4,7 +4,7 @@ A repository containing training, validation and testing tools for different fac
 ## Instructions
 
 ### Build Subsets
-Run all cells in `Subset_Train_Test_Data.ipynb`. This should provide you with the subsetted version of the data used in our experiments, provided you have downloaded the DIFF dataset (https://github.com/xaCheng1996/DiFF) into your train and test folders (we used the following directory structure): 
+Run last few cells in `Subset_Train_Test_Data.ipynb`. This should provide you with the subsetted version of the data used in our experiments, provided you have downloaded the DIFF dataset (https://github.com/xaCheng1996/DiFF) into your train and test folders (we used the following directory structure): 
 
 ./train
    - /fe
