@@ -12,12 +12,14 @@ Run all cells in `Subset_Train_Test_Data.ipynb`. This should provide you with th
    - /i2i
    - /t2i
    - /real
+
 ./val
    - /fe
    - /fs
    - /i2i
    - /t2i
    - /real
+
 ./test
    - /fe
    - /fs
