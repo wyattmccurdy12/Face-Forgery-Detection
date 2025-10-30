@@ -34,6 +34,3 @@ Stored in folder `F3Net`, and stored pretrained xception weights in folder `pret
 The model is called on `train_no_val.py` line 88.
 
 
-# Link to results spreadsheet
-So far, F3Net is the highest performing model. 
-The spreadsheet of testing results is located here: (Microsoft Office Sheet)[https://umainesystem-my.sharepoint.com/:x:/g/personal/wyatt_mccurdy_maine_edu/EezpDmkJEh1Ik7PyKPulWO8B6apjj5iHx4nsLPJVG77XlQ?e=bo56UC].
