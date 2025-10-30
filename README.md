@@ -44,6 +44,9 @@ For example:
 `python test.py -n final_effnet_fe_E50.pth -b 32 -t effnet`
 The script should provide you with an output on the terminal as well as a text file, stored in the `test_results` folder. 
 
+Note: 
+Bash scripts for training runs of all baseline models exist in `sh_commands` folder.
+
 ## Acknowledgements
 We thank the authors of the following paper for the free availability of their high-quality dataset: 
 
