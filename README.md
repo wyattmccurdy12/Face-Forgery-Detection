@@ -1,4 +1,5 @@
 # Facial Forgery Detection 
+The supporting repository for 
 A repository containing training, validation and testing tools for different facial forgery detection strategies, using the DiFF dataset.
 
 ## Instructions
@@ -6,26 +7,27 @@ A repository containing training, validation and testing tools for different fac
 ### Build Subsets
 Run last few cells in `Subset_Train_Test_Data.ipynb`. This should provide you with the subsetted version of the data used in our experiments, provided you have downloaded the DIFF dataset (https://github.com/xaCheng1996/DiFF) into your train and test folders (we used the following directory structure): 
 
-./train
-   - /fe
-   - /fs
-   - /i2i
-   - /t2i
-   - /real
-
-./val
-   - /fe
-   - /fs
-   - /i2i
-   - /t2i
-   - /real
-
-./test
-   - /fe
-   - /fs
-   - /i2i
-   - /t2i
-   - /real
+```
+|-- ./
+|   |-- train
+|   |   |-- fe
+|   |   |-- fs
+|   |   |-- i2i
+|   |   |-- t2i
+|   |   |-- real
+|   |-- val
+|   |   |-- fe
+|   |   |-- fs
+|   |   |-- i2i
+|   |   |-- t2i
+|   |   |-- real
+|   |-- test		
+|   |   |-- fe
+|   |   |-- fs
+|   |   |-- i2i
+|   |   |-- t2i
+|   |   |-- real
+```
 
 ### Train
 To train one of the baseline models, run the training script (without validation) `train_no_val.py`.
@@ -52,7 +54,7 @@ Bash scripts for training runs of all baseline models exist in `sh_commands` fol
 ## Acknowledgements
 We thank the authors of the following paper for the free availability of their high-quality dataset: 
 
-`
+```
 @misc{cheng2024diffusion,
       title={Diffusion Facial Forgery Detection}, 
       author={Harry Cheng and Yangyang Guo and Tianyi Wang and Liqiang Nie and Mohan Kankanhalli},
@@ -61,4 +63,4 @@ We thank the authors of the following paper for the free availability of their h
       archivePrefix={arXiv},
       primaryClass={cs.CV}
 }
-`
+```
